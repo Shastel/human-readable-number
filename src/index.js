@@ -2,28 +2,30 @@ module.exports = function toReadable (number) {
   // function toReadable (number) {
   let strNumber = 'пусто';
   let strTemp = 'пусто';
-  let CheckNumber = number;
+  let CheckNumber = 0;
   let strThousans = 'тысяч';
-  // let strDozens = 'десятков';
-  // let strUnits = 'единиц';
-  let thousands = (number - number % 1000) / 1000;
-  let hundreds = (number - number % 100 - thousands * 1000) / 100;
-  let units = number % 10;
-  let dozens = number % 100 - units;
-  let dozen = number % 100;
 
-  if (number == 1000) {
+  number < 0 ? (CheckNumber = number * -1) : (CheckNumber = number);
+
+  let thousands = (CheckNumber - CheckNumber % 1000) / 1000;
+  let hundreds = (CheckNumber - CheckNumber % 100 - thousands * 1000) / 100;
+  let units = CheckNumber % 10;
+  let dozens = CheckNumber % 100 - units;
+  let dozen = CheckNumber % 100;
+
+  if (CheckNumber == 1000) {
     strNumber = `one thousand`;
   } else if (CheckNumber > 99 && CheckNumber < 1000) {
     strNumber = isHundred (hundreds);
-  } else if (number < 100) {
+  } else if (CheckNumber < 100) {
     strNumber = isDozens (dozen);
   }
 
   function isHundred (hundreds) {
     dozen > 0
-      ? (strTemp = `${isUnits (hundreds)} hundred and ${isDozens (dozen)}`)
-      : (strTemp = `${isUnits (hundreds)} hundred`);
+      ? (strTemp = `${isUnits (hundreds)} hundred ${isDozens (dozen)}`)
+      : // ? (strTemp = `${isUnits (hundreds)} hundred and ${isDozens (dozen)}`)
+        (strTemp = `${isUnits (hundreds)} hundred`);
     return strTemp;
   }
 
@@ -32,7 +34,7 @@ module.exports = function toReadable (number) {
       strTemp = isUnits (CheckNumber);
     } else if (CheckNumber >= 20 && CheckNumber < 100) {
       dozen % 10 != 0
-        ? (strTemp = `${isDozen (dozens)}-${isUnits (units)}`)
+        ? (strTemp = `${isDozen (dozens)} ${isUnits (units)}`)
         : (strTemp = isDozen (dozen));
     }
     return strTemp;
@@ -106,7 +108,6 @@ module.exports = function toReadable (number) {
     return strUnits;
   }
 
-  //   function toDozens(number) {
   function isDozen (CheckNumber) {
     let strDozens = 'десятков';
 
@@ -143,6 +144,8 @@ module.exports = function toReadable (number) {
       return strDozens;
     }
   }
+
+  number < 0 ? (strNumber = `-${strNumber}`) : strNumber;
   return strNumber;
 };
 
@@ -159,7 +162,7 @@ module.exports = function toReadable (number) {
 // console.log (toReadable (30));
 // console.log (toReadable (1000));
 // console.log (toReadable (70));
-// console.log (toReadable (111));
+// console.log (toReadable (-111));
 
 // -------------------------------------------------------------------------------------------------
 
