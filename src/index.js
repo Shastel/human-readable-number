@@ -1,27 +1,47 @@
-// module.exports = function toReadable (number) {
-function toReadable (number) {
+module.exports = function toReadable (number) {
+  // function toReadable (number) {
   let strNumber = 'пусто';
+  let strTemp = 'пусто';
+  let CheckNumber = number;
   let strThousans = 'тысяч';
-  let strHundreds = 'сотен';
-  let strDozens = 'десятков';
-  let strUnits = 'единиц';
+  // let strDozens = 'десятков';
+  // let strUnits = 'единиц';
   let thousands = (number - number % 1000) / 1000;
   let hundreds = (number - number % 100 - thousands * 1000) / 100;
   let units = number % 10;
   let dozens = number % 100 - units;
   let dozen = number % 100;
 
-  if (number < 20) {
-    strNumber = isUnits (number);
-  } else if (number >= 20 && number < 100) {
-    dozen % 10 != 0
-      ? (strNumber = `${isDozens (dozens)}-${isUnits (units)}`)
-      : // ? (strNumber = `${isDozens (dozen)}-${isUnits (dozen)}`)
-        (strNumber = isDozens (dozen));
+  if (number == 1000) {
+    strNumber = `one thousand`;
+  } else if (CheckNumber > 99 && CheckNumber < 1000) {
+    strNumber = isHundred (hundreds);
+  } else if (number < 100) {
+    strNumber = isDozens (dozen);
   }
 
-  function isUnits (number) {
-    switch (number) {
+  function isHundred (hundreds) {
+    dozen > 0
+      ? (strTemp = `${isUnits (hundreds)} hundred and ${isDozens (dozen)}`)
+      : (strTemp = `${isUnits (hundreds)} hundred`);
+    return strTemp;
+  }
+
+  function isDozens (CheckNumber) {
+    if (CheckNumber < 20) {
+      strTemp = isUnits (CheckNumber);
+    } else if (CheckNumber >= 20 && CheckNumber < 100) {
+      dozen % 10 != 0
+        ? (strTemp = `${isDozen (dozens)}-${isUnits (units)}`)
+        : (strTemp = isDozen (dozen));
+    }
+    return strTemp;
+  }
+
+  function isUnits (CheckNumber) {
+    let strUnits = 'единиц';
+
+    switch (CheckNumber) {
       case 0:
         strUnits = 'zero';
         break;
@@ -87,12 +107,14 @@ function toReadable (number) {
   }
 
   //   function toDozens(number) {
-  function isDozens (number) {
-    if (number > 99 && number < 19) {
+  function isDozen (CheckNumber) {
+    let strDozens = 'десятков';
+
+    if (CheckNumber > 99 && CheckNumber < 19) {
       return (strDozens = 'oww');
     } else {
       // десятки от 20 до 90
-      switch (number) {
+      switch (CheckNumber) {
         case 20:
           strDozens = 'twenty';
           break;
@@ -121,21 +143,23 @@ function toReadable (number) {
       return strDozens;
     }
   }
-  return `${number} - ${strNumber}`;
-}
+  return strNumber;
+};
 
-console.log (toReadable (1));
-console.log (toReadable (3));
-console.log (toReadable (15));
-console.log (toReadable (4));
-console.log (toReadable (0));
-console.log (toReadable (19));
-console.log (toReadable (20));
-console.log (toReadable (25));
-console.log (toReadable (30));
-console.log (toReadable (90));
-console.log (toReadable (70));
-console.log (toReadable (111));
+// console.log (toReadable (1));
+// console.log (toReadable (300));
+// console.log (toReadable (600));
+// console.log (toReadable (579));
+// console.log (toReadable (15));
+// console.log (toReadable (4));
+// console.log (toReadable (0));
+// console.log (toReadable (19));
+// console.log (toReadable (20));
+// console.log (toReadable (25));
+// console.log (toReadable (30));
+// console.log (toReadable (1000));
+// console.log (toReadable (70));
+// console.log (toReadable (111));
 
 // -------------------------------------------------------------------------------------------------
 
@@ -143,17 +167,3 @@ console.log (toReadable (111));
 // hundreds
 // dozens
 // units
-
-// function toThousand (thousand) {
-//   if (number / 1000 <= 1) {
-//     return;
-//   } else {
-//     return `${toHundreds (number / 1000)} ${dozens (number)} "thousand"`;
-//   }
-// }
-
-// function toHundreds(number) {
-//   if (number / 100 <= 1) {
-//     return;
-//   } else {
-//     dozens(number)
