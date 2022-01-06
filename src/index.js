@@ -1,7 +1,6 @@
 module.exports = function toReadable (number) {
     const strNumber = number.toString();
 
-
     const unitsDictionary = {
         0: 'zero',
         1: 'one',
@@ -14,6 +13,7 @@ module.exports = function toReadable (number) {
         8: 'eight',
         9: 'nine'
     };
+
     const tensDictionary = {
         0: '',
         1: '',
@@ -36,6 +36,7 @@ module.exports = function toReadable (number) {
         8: 'eighty',
         9: 'ninety'
     };
+
     const showHundreeds = () => {
         const hundreds = Number(strNumber[0]);
         const tens = Number(strNumber[1]);
@@ -96,4 +97,4 @@ module.exports = function toReadable (number) {
         case 3: return showHundreeds(); break;
         default: return 'Not valid number'; break;
     }
-    }
+}
