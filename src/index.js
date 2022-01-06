@@ -1,9 +1,9 @@
 module.exports = function toReadable (number) {
   // function toReadable (number) {
-  let strNumber = 'пусто';
-  let strTemp = 'пусто';
+  let strNumber = '';
+  let strTemp = '';
   let CheckNumber = 0;
-  let strThousans = 'тысяч';
+  // let strThousans = 'тысяч';
 
   number < 0 ? (CheckNumber = number * -1) : (CheckNumber = number);
 
@@ -41,7 +41,7 @@ module.exports = function toReadable (number) {
   }
 
   function isUnits (CheckNumber) {
-    let strUnits = 'единиц';
+    let strUnits = '';
 
     switch (CheckNumber) {
       case 0:
@@ -109,10 +109,10 @@ module.exports = function toReadable (number) {
   }
 
   function isDozen (CheckNumber) {
-    let strDozens = 'десятков';
+    let strDozens = '';
 
     if (CheckNumber > 99 && CheckNumber < 19) {
-      return (strDozens = 'oww');
+      return (strDozens = '');
     } else {
       // десятки от 20 до 90
       switch (CheckNumber) {
