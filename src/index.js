@@ -1,5 +1,5 @@
-module.exports = function toReadable (x) {
-    let xStr = x.toString();
+module.exports = function toReadable (number) {
+    let xStr = number.toString();
     let result = '';
     let lastTwo = Number(xStr.substr(xStr.length - 2, 2));
   
@@ -83,7 +83,7 @@ module.exports = function toReadable (x) {
     
     if (xStr.length === 3) {
       lastTwo === '' ? result = firstTwenty(Number(xStr[0])) + ' hundred' : result = firstTwenty(Number(xStr[0])) + ' hundred ' + lastTwo;
-    } else if (x === 0) {
+    } else if (number === 0) {
       result = 'zero';
     } else if (xStr.length <= 2) {
       result = lastTwo;
