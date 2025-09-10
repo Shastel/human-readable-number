@@ -23,7 +23,7 @@
   "dependencies": {
     "chai": "^4.2.0",
     "colors": "^1.4.0",
-    "mocha": "^10.2.0",
+    "mocha": "^10.8.2",
     "semver": "^6.3.0"
   }
 }
